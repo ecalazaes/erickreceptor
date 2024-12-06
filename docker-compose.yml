@@ -1,11 +1,19 @@
-version: '3.8'
+networks:
+  app_network:
+    external: true
 
 services:
-   # Aplicação
-  app:
+  receptor-service:
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - '8091:8091'
+      - "8082:8082"
+    environment:
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USER=guest
+      - RABBITMQ_PASSWORD=guest
+    networks:
+      - app_network
 

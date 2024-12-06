@@ -9,9 +9,6 @@ import java.util.Objects;
 @Table(name = "tb_usuarios")
 public class UsuarioPlanoSaude {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "usuario_id")
@@ -26,7 +23,8 @@ public class UsuarioPlanoSaude {
     public UsuarioPlanoSaude() {
     }
 
-    public UsuarioPlanoSaude(String nome, String matricula) {
+    public UsuarioPlanoSaude(Long id, String nome, String matricula) {
+        this.id = id;
         this.nome = nome;
         this.matricula = matricula;
     }
@@ -56,15 +54,10 @@ public class UsuarioPlanoSaude {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        UsuarioPlanoSaude that = (UsuarioPlanoSaude) o;
-        return Objects.equals(id, that.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
+    public String toString() {
+        return "UsuarioPlanoSaude{" +
+                "nome='" + nome + '\'' +
+                ", matricula='" + matricula + '\'' +
+                '}';
     }
 }

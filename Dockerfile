@@ -2,7 +2,7 @@
 FROM maven:latest AS build
 
 # Defina o diretório de trabalho para /app
-WORKDIR /erickreceptormicroservico
+WORKDIR /app
 
 # Copie o arquivo pom.xml e a pasta src para o contêiner
 COPY pom.xml .
@@ -15,13 +15,13 @@ RUN mvn clean package -DskipTests
 FROM openjdk:17-jdk-slim
 
 # Defina o diretório de trabalho para /app
-WORKDIR /erickreceptormicroservico
+WORKDIR /app
 
 # Copie o arquivo .jar gerado na etapa de build para a imagem final
-COPY --from=build /erickreceptormicroservico/target/*.jar erickreceptormicroservico.jar
+COPY --from=build /app/target/*.jar app.jar
 
 # Exponha a porta que a aplicação vai usar
 EXPOSE 8080
 
 # Comando para rodar a aplicação
-ENTRYPOINT ["java", "-jar", "erickreceptormicroservico.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
